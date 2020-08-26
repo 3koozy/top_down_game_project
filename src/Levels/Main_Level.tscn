@@ -39,9 +39,6 @@ position = Vector2( 561.719, 533.128 )
 [node name="Ghost5" parent="Ghosts" instance=ExtResource( 4 )]
 position = Vector2( 866.964, 396.903 )
 
-[node name="Ghost6" parent="Ghosts" instance=ExtResource( 4 )]
-position = Vector2( 1003.96, 581.903 )
-
 [node name="floor2" parent="." instance=ExtResource( 2 )]
 cell_size = Vector2( 16, 16 )
 cell_quadrant_size = 1
