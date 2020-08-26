@@ -8,11 +8,6 @@ export var max_speed: int = 50
 func _physics_process(delta):
 	#update animation:
 	var animation: String = ""
-	#check motion:
-	#if motion != Vector2.ZERO: #moving
-	#	animation = "moving_"
-	#else : animation = "stop_"
-	
 	#check direction:
 	if direction.x > 0: #right
 		animation += "moving_right"
@@ -25,10 +20,15 @@ func _physics_process(delta):
 	else : animation += "moving_down"
 	#set animation:
 	sprite.animation = animation
+	#check if hit obstacle:
+	if is_on_wall():
+		#reverse direction:
+		direction.x *= -1
+		direction.y *= -1
 	#move ghost:
 	motion.x = direction.x * max_speed * delta
 	motion.y = direction.y * max_speed * delta
-	move_and_collide(motion)
+	move_and_slide(motion)
 
 
 func _on_Timer_timeout():
@@ -40,7 +40,3 @@ func _on_Timer_timeout():
 		#change direction:
 		direction.x = rand_range(-1.0 , 1.0)
 		direction.y = rand_range(-1.0 , 1.0)
-
-
-func _on_damage_area_area_entered(area):
-	print("X_X")

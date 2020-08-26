@@ -1,9 +1,13 @@
 extends KinematicBody2D
 
+#variables:
 onready var player_sprite: AnimatedSprite = get_node("AnimatedSprite")
-var direction: String = "d"
 export var player_max_speed = 200
+export var player_max_health: int = 10
+export var score: int = 0
+var direction: String = "d"
 var player_motion: Vector2 = Vector2(0,0)
+var health: int = player_max_health # initially at maximum
 
 func _physics_process(delta):
 	#calculate motion and change animation:
@@ -33,7 +37,7 @@ func _physics_process(delta):
 	var direction: Vector2 = get_direction()
 	player_motion.x = direction.x * player_max_speed * delta
 	player_motion.y = direction.y * player_max_speed * delta
-	move_and_collide(player_motion)
+	move_and_slide(player_motion)
 
 func get_direction() -> Vector2:
 	var direction = Vector2(
@@ -41,3 +45,14 @@ func get_direction() -> Vector2:
 		, Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	)
 	return direction
+
+
+func _on_player_area_area_entered(area):
+	if area.name == "love_area":
+		#increase health by 1:
+		health = min(health+1 , player_max_health)
+		Audio_System.kiss_sfx.play()
+	elif area.name == "damage_area":
+		#decrease health by 1:
+		health = max(health-1 , 0)
+		Audio_System.hurt_sfx.play()

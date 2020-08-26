@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/nature_comes_sharp.ogg-cdb1a9453fec5d1d156548b0eeb0583d.oggstr"
+
+[deps]
+
+source_file="res://assets/Audio/Background_Music/nature_comes_sharp.ogg"
+dest_files=[ "res://.import/nature_comes_sharp.ogg-cdb1a9453fec5d1d156548b0eeb0583d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
