@@ -35,8 +35,9 @@ func _physics_process(delta):
 			player_sprite.animation = "stop_right"
 	#move the player:
 	var direction: Vector2 = get_direction()
-	player_motion.x = direction.x * player_max_speed * delta
-	player_motion.y = direction.y * player_max_speed * delta
+	var motion_multiplier: int = 2 if Input.is_key_pressed(KEY_SHIFT) else 1
+	player_motion.x = direction.x * player_max_speed * motion_multiplier * delta
+	player_motion.y = direction.y * player_max_speed * motion_multiplier * delta
 	move_and_slide(player_motion)
 
 func get_direction() -> Vector2:
@@ -50,8 +51,9 @@ func get_direction() -> Vector2:
 func _on_player_area_area_entered(area):
 	if area.name == "love_area":
 		#increase health by 1:
-		health = min(health+1 , player_max_health)
-		Audio_System.kiss_sfx.play()
+		if health < player_max_health:
+			health = health+1
+			Audio_System.kiss_sfx.play()
 	elif area.name == "damage_area":
 		#decrease health by 1:
 		health = max(health-1 , 0)

@@ -115,7 +115,7 @@ extents = Vector2( 6.05005, 9.1694 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-player_max_speed = 4000
+player_max_speed = 3000
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 17 )
@@ -128,6 +128,8 @@ polygon = PoolVector2Array( 4.67226, -7.65198, -4.86868, -7.65198, -5.24438, 7.1
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.6, 0.6 )
+limit_smoothed = true
+smoothing_enabled = true
 
 [node name="player_area" type="Area2D" parent="."]
 monitorable = false
