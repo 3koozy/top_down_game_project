@@ -5,6 +5,7 @@ onready var player_sprite: AnimatedSprite = get_node("AnimatedSprite")
 onready var Feedback_Label: Label = get_node("Feedback_Label")
 onready var anim_player: AnimationPlayer = get_node("AnimationPlayer")
 onready var dust_particles: Particles2D = get_node("Dust_Particles/Particles2D")
+onready var heart_particles: Particles2D = get_node("hearts_particles/Particles2D")
 export var player_max_speed = 200
 export var player_max_health: int = 10
 export var score: int = 0
@@ -66,6 +67,7 @@ func _on_player_area_area_entered(area):
 			health = health+1
 			Audio_System.kiss_sfx.play()
 			show_feedback("Health +1" , "g")
+			heart_particles.emitting = true
 	elif area.name == "damage_area":
 		#decrease health by 1:
 		health = max(health-1 , 0)
