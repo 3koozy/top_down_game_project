@@ -1,9 +1,14 @@
 extends KinematicBody2D
 
 onready var sprite: AnimatedSprite = get_node("AnimatedSprite")
-var direction: Vector2 = Vector2(0.0 , 1.0) #down by default
-var motion: Vector2 = Vector2.ZERO
+export var direction: Vector2 = Vector2(0.0 , 1.0) #down by default
 export var max_speed: int = 50
+export var change_direction: bool = true
+var motion: Vector2 = Vector2.ZERO
+
+func _ready():
+	if !change_direction:
+		get_node("change_direction_timer").stop()
 
 func _physics_process(delta):
 	#update animation:
@@ -31,7 +36,7 @@ func _physics_process(delta):
 	move_and_slide(motion)
 
 
-func _on_Timer_timeout():
+func _on_change_direction_timer_timeout():
 	var chance: int = randi() % 11
 	if chance == 10 : #1/10 chance
 		#stop moving

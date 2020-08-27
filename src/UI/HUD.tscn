@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/coin.png" type="Texture" id=1]
 [ext_resource path="res://assets/Heart.png" type="Texture" id=2]
+[ext_resource path="res://src/UI/HUD.gd" type="Script" id=3]
 
 [node name="HUD" type="Control"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 8.0
 margin_bottom = 8.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -41,3 +44,49 @@ text = "Score : %s"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="black_screen" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -8.0
+margin_right = -8.0
+margin_bottom = -8.0
+color = Color( 0, 0, 0, 0.196078 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="VBoxContainer" parent="black_screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.0
+margin_top = -23.0
+margin_right = 52.0
+margin_bottom = 56.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pause_Label" type="Label" parent="black_screen/menu"]
+margin_right = 88.0
+margin_bottom = 31.0
+text = "Game Paused
+"
+
+[node name="resume_btn" type="Button" parent="black_screen/menu"]
+margin_top = 35.0
+margin_right = 88.0
+margin_bottom = 55.0
+text = "Resume"
+
+[node name="quit_btn" type="Button" parent="black_screen/menu"]
+margin_top = 59.0
+margin_right = 88.0
+margin_bottom = 79.0
+text = "Quit"
+[connection signal="button_up" from="black_screen/menu/resume_btn" to="." method="_on_resume_btn_button_up"]
+[connection signal="button_up" from="black_screen/menu/quit_btn" to="." method="_on_quit_btn_button_up"]
