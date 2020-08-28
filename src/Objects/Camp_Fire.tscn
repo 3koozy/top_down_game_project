@@ -49,6 +49,7 @@ shape = SubResource( 7 )
 
 [node name="Light2D" type="Light2D" parent="StaticBody2D"]
 texture = ExtResource( 1 )
+texture_scale = 0.5
 energy = 1.2
 mode = 2
 shadow_enabled = true

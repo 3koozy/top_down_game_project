@@ -6,6 +6,7 @@ onready var Feedback_Label: Label = get_node("Feedback_Label")
 onready var anim_player: AnimationPlayer = get_node("AnimationPlayer")
 onready var dust_particles: Particles2D = get_node("Dust_Particles/Particles2D")
 onready var heart_particles: Particles2D = get_node("hearts_particles/Particles2D")
+onready var blood_anim: AnimatedSprite = get_node("blood_animated/AnimatedSprite")
 export var player_max_speed = 200
 export var player_max_health: int = 10
 export var score: int = 0
@@ -73,6 +74,8 @@ func _on_player_area_area_entered(area):
 		health = max(health-1 , 0)
 		Audio_System.hurt_sfx.play()
 		show_feedback("Health -1" , "r")
+		blood_anim.frame = 0
+		blood_anim.play()
 
 func show_feedback(text: String , color: String):
 	Feedback_Label.text = text

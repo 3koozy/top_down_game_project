@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Blood",
+"language": "GDScript",
+"path": "res://src/VFX/blood_animated.gd"
+}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
 } ]
 _global_script_class_icons={
+"Blood": "res://assets/blood_a_2.png",
 "GitAPI": ""
 }
 
