@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Auto_Loader/Time_System.gd" type="Script" id=1]
+
+[node name="Time_System" type="Node"]
+script = ExtResource( 1 )
+day_period = 60000.0
+day_to_night_period = 60000.0
+night_period = 60000.0
+night_to_day_period = 60000.0
+
+[node name="time_of_day_signal_timer" type="Timer" parent="."]
+[connection signal="timeout" from="time_of_day_signal_timer" to="." method="_on_time_of_day_signal_timer_timeout"]

@@ -12,7 +12,11 @@ export var player_max_health: int = 10
 export var score: int = 0
 var direction: String = "d"
 var player_motion: Vector2 = Vector2(0,0)
-var health: int = player_max_health # initially at maximum
+
+func _ready():
+	Global_Variables.player_health = player_max_health
+	Global_Variables.player_max_health = player_max_health
+	Global_Variables.score = score
 
 func _physics_process(delta):
 	#calculate motion and change animation:
@@ -64,18 +68,19 @@ func get_direction() -> Vector2:
 func _on_player_area_area_entered(area):
 	if area.name == "love_area":
 		#increase health by 1:
-		if health < player_max_health:
-			health = health+1
+		if Global_Variables.player_health < Global_Variables.player_max_health:
+			Global_Variables.player_health += 1
 			Audio_System.kiss_sfx.play()
 			show_feedback("Health +1" , "g")
 			heart_particles.emitting = true
 	elif area.name == "damage_area":
-		#decrease health by 1:
-		health = max(health-1 , 0)
-		Audio_System.hurt_sfx.play()
-		show_feedback("Health -1" , "r")
-		blood_anim.frame = 0
-		blood_anim.play()
+		if Global_Variables.player_health > 0:
+			#decrease health by 1:
+			Global_Variables.player_health -= 1
+			Audio_System.hurt_sfx.play()
+			show_feedback("Health -1" , "r")
+			blood_anim.frame = 0
+			blood_anim.play()
 
 func show_feedback(text: String , color: String):
 	Feedback_Label.text = text

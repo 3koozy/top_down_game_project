@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/TileMap1.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/UI/HUD.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Levels/Main_Level.gd" type="Script" id=6]
 [ext_resource path="res://src/Objects/Camp_Fire.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/VFX/Day_and_Night_Cycle.tscn" type="PackedScene" id=8]
 
 [node name="Main_Level" type="Node2D"]
 script = ExtResource( 6 )
@@ -67,5 +68,7 @@ tile_data = PoolIntArray( -1, 16, 0, -65536, 16, 0, -65535, 16, 0, -65534, 16, 0
 
 [node name="Camp_Fire" parent="." instance=ExtResource( 7 )]
 position = Vector2( 293.668, 495.191 )
+
+[node name="Day_and_Night_Cycle" parent="." instance=ExtResource( 8 )]
 
 [editable path="Player"]

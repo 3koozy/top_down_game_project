@@ -33,6 +33,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Audio_System="*res://src/Auto_Loader/Audio_System.tscn"
+Time_System="*res://src/Auto_Loader/Time_System.tscn"
+Global_Variables="*res://src/Auto_Loader/Global_Variables.tscn"
 
 [display]
 

@@ -26,7 +26,7 @@ texture = ExtResource( 2 )
 margin_left = 21.0
 margin_right = 171.0
 margin_bottom = 14.0
-text = "Health : %s"
+text = "Health : %s / %s"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -88,5 +88,16 @@ margin_top = 59.0
 margin_right = 88.0
 margin_bottom = 79.0
 text = "Quit"
+
+[node name="time_metrics_label" type="Label" parent="."]
+margin_top = 55.2358
+margin_right = 153.0
+margin_bottom = 69.2358
+text = "Time metrics :
+-
+-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_up" from="black_screen/menu/resume_btn" to="." method="_on_resume_btn_button_up"]
 [connection signal="button_up" from="black_screen/menu/quit_btn" to="." method="_on_quit_btn_button_up"]

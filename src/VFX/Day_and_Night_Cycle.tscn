@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/VFX/Day_and_Night_Cycle.gd" type="Script" id=1]
+
+[node name="Day_and_Night_Cycle" type="CanvasModulate"]
+script = ExtResource( 1 )
