@@ -1,6 +1,7 @@
 extends Node
 
 #signals:
+signal night
 signal day_to_night
 signal night_to_day
 #variables:
@@ -71,3 +72,4 @@ func _on_time_of_day_signal_timer_timeout():
 		match time_of_day:
 			"day_to_night": emit_signal("day_to_night")
 			"night_to_day": emit_signal("night_to_day")
+			"night": emit_signal("night")
