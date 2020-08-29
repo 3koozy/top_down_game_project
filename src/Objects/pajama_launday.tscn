@@ -22,6 +22,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="laundry_area" type="Area2D" parent="."]
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="laundry_area"]
 shape = SubResource( 2 )

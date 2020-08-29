@@ -76,12 +76,24 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( 100, 112 )
 scale = Vector2( 0.5, 0.5 )
 
+[node name="sock_laundry2" parent="Objects" instance=ExtResource( 11 )]
+position = Vector2( 108, 108 )
+scale = Vector2( 0.5, 0.5 )
+
 [node name="pants_laundry" parent="Objects" instance=ExtResource( 10 )]
 position = Vector2( 124, 96 )
 scale = Vector2( 0.5, 0.5 )
 
+[node name="pants_laundry2" parent="Objects" instance=ExtResource( 10 )]
+position = Vector2( 136, 132 )
+scale = Vector2( 0.5, 0.5 )
+
 [node name="pajama_laundry" parent="Objects" instance=ExtResource( 13 )]
 position = Vector2( 144, 64 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="pajama_laundry2" parent="Objects" instance=ExtResource( 13 )]
+position = Vector2( 164, 100 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Girl" parent="." instance=ExtResource( 3 )]

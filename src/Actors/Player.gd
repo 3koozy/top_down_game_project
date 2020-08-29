@@ -9,15 +9,9 @@ onready var heart_particles: Particles2D = get_node("hearts_particles/Particles2
 onready var blood_anim: AnimatedSprite = get_node("blood_animated/AnimatedSprite")
 #Variables:
 export var player_max_speed = 200
-export var player_max_health: int = 10
-export var score: int = 0
 var direction: String = "d"
 var player_motion: Vector2 = Vector2(0,0)
 
-func _ready():
-	Global_Variables.player_health = player_max_health
-	Global_Variables.player_max_health = player_max_health
-	Global_Variables.score = score
 
 func _physics_process(delta):
 	#calculate motion and change animation:
@@ -83,10 +77,21 @@ func _on_player_area_area_entered(area):
 			blood_anim.frame = 0
 			blood_anim.play()
 	elif area.name == "laundry_area":
-		var cloth_type: String = area.get_parent().cloth_name
+		var laundry = area.get_parent()
+		var cloth_type: String = laundry.cloth_name
 		var weight: int = area.get_parent().weight
-		Global_Variables.carried_laundary.append(cloth_type)
-		Global_Variables.carried_weight.append(weight)
+		if Global_Variables.get_total_carried_weight() + weight <= Global_Variables.carry_capacity:
+			Global_Variables.carried_laundary.append(cloth_type)
+			Global_Variables.carried_weight.append(weight)
+			laundry.queue_free()
+		else: show_feedback("No room to carry more laundry!" , "r")
+	elif area.name == "basket_area":
+		var reward = Global_Variables.get_total_carried_weight() * Global_Variables.reward_per_weight
+		Global_Variables.score += reward
+		show_feedback("Reward +" + str(reward) , "g")
+		Global_Variables.carried_laundary = []
+		Global_Variables.carried_weight = []
+		
 
 func show_feedback(text: String , color: String):
 	Feedback_Label.text = text
