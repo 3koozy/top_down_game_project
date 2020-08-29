@@ -12,7 +12,7 @@ func _ready():
 func _process(delta):
 	if current_anim == "Day_to_Night":
 		var anim_period_sec: float = Time_System.day_to_night_period / 1000.0
-		var many_deltas: float = anim_period_sec / delta
+		var many_deltas: float = anim_period_sec / (delta + 0.00001) # added expsilon to prevent dividing on zero
 		_increment = ((night_value - day_value) / many_deltas)
 		color.r = max(color.r + _increment , night_value)
 		color.g = max(color.g + _increment , night_value)

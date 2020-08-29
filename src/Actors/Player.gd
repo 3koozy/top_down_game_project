@@ -80,17 +80,23 @@ func _on_player_area_area_entered(area):
 		var laundry = area.get_parent()
 		var cloth_type: String = laundry.cloth_name
 		var weight: int = area.get_parent().weight
+		#check if there is enough carry capacity:
 		if Global_Variables.get_total_carried_weight() + weight <= Global_Variables.carry_capacity:
 			Global_Variables.carried_laundary.append(cloth_type)
 			Global_Variables.carried_weight.append(weight)
 			laundry.queue_free()
+			Audio_System.laundry_pickup_sfx.play()
+			show_feedback("Picked up " + cloth_type , "g")
 		else: show_feedback("No room to carry more laundry!" , "r")
 	elif area.name == "basket_area":
-		var reward = Global_Variables.get_total_carried_weight() * Global_Variables.reward_per_weight
-		Global_Variables.score += reward
-		show_feedback("Reward +" + str(reward) , "g")
-		Global_Variables.carried_laundary = []
-		Global_Variables.carried_weight = []
+		var weight = Global_Variables.get_total_carried_weight()
+		if(weight > 0):
+			var reward = weight * Global_Variables.reward_per_weight
+			Global_Variables.score += reward
+			show_feedback("Reward +" + str(reward) , "g")
+			Global_Variables.carried_laundary = []
+			Global_Variables.carried_weight = []
+			Audio_System.deliver_laundry_sfx.play()
 		
 
 func show_feedback(text: String , color: String):
