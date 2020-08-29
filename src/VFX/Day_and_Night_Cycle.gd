@@ -2,7 +2,7 @@ extends CanvasModulate
 
 var current_anim: String = ""
 export var day_value: float = 1.0
-export var night_value: float = 0.35
+export var night_value: float = 0.1
 var _increment: float = 0
 
 func _ready():

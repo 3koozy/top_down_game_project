@@ -99,5 +99,12 @@ text = "Time metrics :
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Carried_Laundry_Label" type="Label" parent="."]
+margin_top = 109.376
+margin_right = 40.0
+margin_bottom = 123.376
+text = "Carried Laundry : %s
+Carried Weight : &s / &s"
 [connection signal="button_up" from="black_screen/menu/resume_btn" to="." method="_on_resume_btn_button_up"]
 [connection signal="button_up" from="black_screen/menu/quit_btn" to="." method="_on_quit_btn_button_up"]

@@ -153,7 +153,7 @@ tracks/0/keys = {
 font_data = ExtResource( 3 )
 
 [sub_resource type="OccluderPolygon2D" id=22]
-polygon = PoolVector2Array( 2.77786, 6.39448, 4.74438, 3.21058, 5.02532, -6.24748, 2.40328, -8.49494, -3.4963, -8.4013, -5.93105, -4.74918, -4.52639, 6.86271 )
+polygon = PoolVector2Array( 4.75908, 7.85793, -4.7624, 7.91362, -5.43058, 6.02046, 5.37157, 5.96478 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -178,7 +178,6 @@ limit_smoothed = true
 smoothing_enabled = true
 
 [node name="player_area" type="Area2D" parent="."]
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_area"]
 shape = SubResource( 18 )

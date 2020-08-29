@@ -1,12 +1,13 @@
 extends KinematicBody2D
 
-#variables:
+#Nodes:
 onready var player_sprite: AnimatedSprite = get_node("AnimatedSprite")
 onready var Feedback_Label: Label = get_node("Feedback_Label")
 onready var anim_player: AnimationPlayer = get_node("AnimationPlayer")
 onready var dust_particles: Particles2D = get_node("Dust_Particles/Particles2D")
 onready var heart_particles: Particles2D = get_node("hearts_particles/Particles2D")
 onready var blood_anim: AnimatedSprite = get_node("blood_animated/AnimatedSprite")
+#Variables:
 export var player_max_speed = 200
 export var player_max_health: int = 10
 export var score: int = 0
@@ -81,6 +82,11 @@ func _on_player_area_area_entered(area):
 			show_feedback("Health -1" , "r")
 			blood_anim.frame = 0
 			blood_anim.play()
+	elif area.name == "laundry_area":
+		var cloth_type: String = area.get_parent().cloth_name
+		var weight: int = area.get_parent().weight
+		Global_Variables.carried_laundary.append(cloth_type)
+		Global_Variables.carried_weight.append(weight)
 
 func show_feedback(text: String , color: String):
 	Feedback_Label.text = text
