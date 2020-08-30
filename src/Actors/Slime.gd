@@ -15,14 +15,18 @@ var motion: Vector2 = Vector2.ZERO
 var chase_mode: bool = false
 var chase_target : Node2D
 var running: bool = false
+var running_from: Node
 var sticky_laundry: Node
 var speed_multplier: int = 1
+var dead: bool = false
 
 func _ready():
 	if !change_direction:
 		get_node("change_direction_timer").stop()
 
 func _physics_process(delta):
+	#stop any processing if dead:
+	if dead: return
 	#update animation:
 	var animation: String = ""
 	#check direction:
@@ -39,7 +43,16 @@ func _physics_process(delta):
 	sprite.animation = animation
 	#check if we steped in light:
 	#check if we are chasing target:
-	if !running:
+	if running:
+		var player_pos : Vector2 = running_from.global_position
+		var slime_pos: Vector2 = self.global_position
+		direction.x = player_pos.x - slime_pos.x
+		direction.y = player_pos.y - slime_pos.y
+		var larger_value = -1 * max(abs(direction.x) , abs(direction.y)) #negative to point to oppisite direction
+		direction.x /= larger_value
+		direction.y /= larger_value
+		print("running : " + str(direction))
+	else:
 		if chase_mode:
 			var laundry_pos : Vector2 = chase_target.global_position
 			var slime_pos: Vector2 = self.global_position
@@ -49,7 +62,7 @@ func _physics_process(delta):
 			direction.x /= larger_value
 			direction.y /= larger_value
 		#check if hit obstacle:
-		if is_on_wall():
+		elif is_on_wall():
 			#reverse direction:
 			direction.x *= -1
 			direction.y *= -1
@@ -74,24 +87,19 @@ func _on_change_direction_timer_timeout():
 			direction.x = rand_range(-1.0 , 1.0)
 			direction.y = rand_range(-1.0 , 1.0)
 		#should we drop the laundry ?:
-		chance = randi() % 6
-		if chance == 5: #1/5 = 20% chance
-			sticky_laundry = null
-			feedback.show_feedback("pff... it's getting boaring!" , "y")
+		if sticky_laundry != null:
+			chance = randi() % 6
+			if chance == 5: #1/5 = 20% chance
+				sticky_laundry = null
+				feedback.show_feedback("pff... it's getting boaring!" , "y")
 
 func _on_detection_area_body_entered(body):
 	if body.name == "Player":
 		#run away:
 		running = true
-		var player_pos : Vector2 = body.global_position
-		var slime_pos: Vector2 = self.global_position
-		direction.x = player_pos.x - slime_pos.x
-		direction.y = player_pos.y - slime_pos.y
-		var larger_value = -1 * max(abs(direction.x) , abs(direction.y)) #negative to point to oppisite direction
-		direction.x /= larger_value
-		direction.y /= larger_value
+		running_from = body
 		#double the speed:
-		speed_multplier = 2
+		speed_multplier = 3
 		feedback.show_feedback("scarry human!" , "y")
 
 
@@ -99,6 +107,7 @@ func _on_detection_area_body_exited(body):
 	if body.name == "Player":
 		#stop running:
 		running = false
+		running_from = null
 		speed_multplier = 1
 
 
@@ -129,9 +138,15 @@ func _on_touch_area_area_entered(area):
 		chase_mode = false
 		chase_target = null
 		feedback.show_feedback("yummy... :D" , "y")
+	elif area.name == "damage_area" or area.name == "fist_area":
+		feedback.show_feedback("ouch!" , "r")
+		anim_player.play("die_animation")
 
 
 func _on_chase_timer_timeout():
 	#only of chase target still in range:
 	if chase_target != null:
 		chase_mode = true
+
+func be_dead():
+	dead = true

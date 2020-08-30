@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/Audio/Background_Music/nature_comes_sharp.ogg" type="AudioStream" id=1]
 [ext_resource path="res://src/Auto_Loader/Audio_System.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/Audio/SFX/kiss.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/Audio/SFX/pick_up_laundry.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/Audio/SFX/deliver_laundry.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/Audio/SFX/open_door.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/Audio/SFX/close_door.wav" type="AudioStream" id=8]
 
 [node name="Audio_System" type="Node"]
 script = ExtResource( 2 )
@@ -29,4 +31,12 @@ volume_db = -5.0
 
 [node name="deliver_laundry_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+volume_db = -5.0
+
+[node name="open_door_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -5.0
+
+[node name="close_door_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 volume_db = -5.0

@@ -15,7 +15,9 @@ func door_interaction():
 func open_door():
 	sprite.play("open_animation")
 	collision.disabled = true
+	Audio_System.open_door_sfx.play()
 
 func close_door():
 	sprite.play("close_animation")
 	collision.disabled = false
+	Audio_System.close_door_sfx.play()

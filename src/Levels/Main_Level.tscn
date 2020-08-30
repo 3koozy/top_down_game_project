@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/TileMap.tscn" type="PackedScene" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://src/Objects/Laundary_Basket.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/Actors/Slime.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/Objects/Wooden_Door.tscn" type="PackedScene" id=16]
+[ext_resource path="res://src/Objects/Wood_Stove.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/Objects/spike_trap.tscn" type="PackedScene" id=18]
 
 [node name="Main_Level" type="Node2D"]
 script = ExtResource( 6 )
@@ -121,6 +123,12 @@ position = Vector2( 296, 344 )
 [node name="Wooden_door3" parent="Objects" instance=ExtResource( 16 )]
 position = Vector2( 600, 184 )
 rotation = -1.5708
+
+[node name="Wood_Stove" parent="Objects" instance=ExtResource( 17 )]
+position = Vector2( 344, 40 )
+
+[node name="spike_trap" parent="Objects" instance=ExtResource( 18 )]
+position = Vector2( 440, 120 )
 
 [node name="Girl" parent="." instance=ExtResource( 3 )]
 position = Vector2( 296, 40 )

@@ -147,7 +147,7 @@ tracks/0/keys = {
 extents = Vector2( 6.95776, 8.24934 )
 
 [sub_resource type="CircleShape2D" id=21]
-radius = 80.0
+radius = 60.0
 
 [node name="Ghost" type="KinematicBody2D"]
 script = ExtResource( 2 )

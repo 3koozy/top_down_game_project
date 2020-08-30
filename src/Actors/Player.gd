@@ -8,6 +8,7 @@ onready var heart_particles: Particles2D = get_node("hearts_particles/Particles2
 onready var blood_anim: AnimatedSprite = get_node("blood_animated/AnimatedSprite")
 onready var feedback: = get_node("feedback")
 onready var player_area: Area2D = get_node("player_area")
+onready var anim_player: AnimationPlayer = get_node("AnimationPlayer")
 #Variables:
 export var player_max_speed = 200
 var direction: String = "d"
@@ -20,6 +21,14 @@ func _input(event):
 		var door: Area2D = check_area_from("door_area" , overlapping_areas)
 		if door != null:
 			door.get_parent().door_interaction()
+	elif event.is_action_released("hit"):
+		var animation = anim_player.get_animation("hit_down")
+		var direction: Vector2 = event.position - get_global_transform_with_canvas().origin
+		var larger_value = max(abs(direction.x) , abs(direction.y))
+		direction.x /= larger_value
+		direction.y /= larger_value
+		animation.track_set_key_value(0 , 1 , direction * Vector2(15 , 15))
+		anim_player.play("hit_down")
 		
 
 func _physics_process(delta):

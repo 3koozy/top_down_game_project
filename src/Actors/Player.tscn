@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/characters.png" type="Texture" id=1]
 [ext_resource path="res://src/Actors/Player.gd" type="Script" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://src/VFX/hearts_particles.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/VFX/blood_animated.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Actors/feedback.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/sprites/hand.png" type="Texture" id=8]
+
+[sub_resource type="CanvasItemMaterial" id=21]
+light_mode = 1
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -124,6 +128,49 @@ font_data = ExtResource( 3 )
 [sub_resource type="OccluderPolygon2D" id=20]
 polygon = PoolVector2Array( 4.75908, 7.85793, -4.7624, 7.91362, -5.43058, 6.02046, 5.37157, 5.96478 )
 
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 2, 3.0905 )
+
+[sub_resource type="Animation" id=22]
+resource_name = "hit_down"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fist:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -2.77795, 6.05813 ), Vector2( -2.778, 15 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Fist:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Fist/fist_area/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 player_max_speed = 3000
@@ -136,6 +183,7 @@ position = Vector2( -14.4191, -16.0543 )
 [node name="hearts_particles" parent="." instance=ExtResource( 5 )]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 21 )
 frames = SubResource( 17 )
 animation = "stop_down"
 playing = true
@@ -166,8 +214,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="blood_animated" parent="." instance=ExtResource( 6 )]
+
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource( 20 )
 
-[node name="blood_animated" parent="." instance=ExtResource( 6 )]
+[node name="Fist" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -2.77795, 6.05813 )
+rotation = 1.57079
+texture = ExtResource( 8 )
+
+[node name="fist_area" type="Area2D" parent="Fist"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fist/fist_area"]
+shape = SubResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hit_down = SubResource( 22 )
 [connection signal="area_entered" from="player_area" to="." method="_on_player_area_area_entered"]
