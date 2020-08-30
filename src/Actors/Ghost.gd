@@ -6,6 +6,7 @@ onready var collision_shape: CollisionPolygon2D = get_node("CollisionPolygon2D")
 onready var damage_area: Area2D = get_node("damage_area")
 onready var anim_player: AnimationPlayer = get_node("AnimationPlayer")
 onready var detection_area: Area2D = get_node("detection_area")
+onready var feedback: = get_node("feedback")
 #Variables:
 export var direction: Vector2 = Vector2(0.0 , 1.0) #down by default
 export var max_speed: int = 50
@@ -94,12 +95,14 @@ func _on_detection_area_body_entered(body):
 	if body.name == "Player":
 		chase_mode = true
 		chase_target = body
+		feedback.show_feedback("ummm.. fresh meat" , "y")
 
 
 func _on_detection_area_body_exited(body):
 	if body.name == "Player":
 		chase_mode = false
 		chase_target = null
+		feedback.show_feedback("too fast >_<" , "y")
 
 
 func _on_detection_area_area_entered(area):
@@ -113,9 +116,11 @@ func _on_detection_area_area_entered(area):
 		var larger_value = -1 * max(abs(direction.x) , abs(direction.y)) #negative for oppisite direction
 		direction.x /= larger_value
 		direction.y /= larger_value
+		feedback.show_feedback("oh no ,light!!!!" , "y")
 		
 
 
 func _on_detection_area_area_exited(area):
 	if area.name == "light_area":
 		in_light = false
+		feedback.show_feedback("phew.." , "y")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/characters.png" type="Texture" id=1]
 [ext_resource path="res://src/Actors/Player.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/VFX/Dust_Particles.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/VFX/hearts_particles.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/VFX/blood_animated.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Actors/feedback.tscn" type="PackedScene" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -117,47 +118,18 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 6.05005, 9.1694 )
 
-[sub_resource type="Animation" id=20]
-resource_name = "label_fade_green"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Feedback_Label:custom_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 1, 0, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=21]
-resource_name = "label_fade_red"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Feedback_Label:custom_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
-}
-
 [sub_resource type="DynamicFont" id=19]
 font_data = ExtResource( 3 )
 
-[sub_resource type="OccluderPolygon2D" id=22]
+[sub_resource type="OccluderPolygon2D" id=20]
 polygon = PoolVector2Array( 4.75908, 7.85793, -4.7624, 7.91362, -5.43058, 6.02046, 5.37157, 5.96478 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 player_max_speed = 3000
+
+[node name="feedback" parent="." instance=ExtResource( 7 )]
+position = Vector2( -14.4191, -16.0543 )
 
 [node name="Dust_Particles" parent="." instance=ExtResource( 4 )]
 
@@ -182,10 +154,6 @@ smoothing_enabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_area"]
 shape = SubResource( 18 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/label_fade_green = SubResource( 20 )
-anims/label_fade_red = SubResource( 21 )
-
 [node name="Feedback_Label" type="Label" parent="."]
 margin_left = -20.4386
 margin_top = -20.9308
@@ -199,7 +167,7 @@ __meta__ = {
 }
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource( 22 )
+occluder = SubResource( 20 )
 
 [node name="blood_animated" parent="." instance=ExtResource( 6 )]
 [connection signal="area_entered" from="player_area" to="." method="_on_player_area_area_entered"]

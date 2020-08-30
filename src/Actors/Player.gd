@@ -3,10 +3,10 @@ extends KinematicBody2D
 #Nodes:
 onready var player_sprite: AnimatedSprite = get_node("AnimatedSprite")
 onready var Feedback_Label: Label = get_node("Feedback_Label")
-onready var anim_player: AnimationPlayer = get_node("AnimationPlayer")
 onready var dust_particles: Particles2D = get_node("Dust_Particles/Particles2D")
 onready var heart_particles: Particles2D = get_node("hearts_particles/Particles2D")
 onready var blood_anim: AnimatedSprite = get_node("blood_animated/AnimatedSprite")
+onready var feedback: = get_node("feedback")
 #Variables:
 export var player_max_speed = 200
 var direction: String = "d"
@@ -66,14 +66,14 @@ func _on_player_area_area_entered(area):
 		if Global_Variables.player_health < Global_Variables.player_max_health:
 			Global_Variables.player_health += 1
 			Audio_System.kiss_sfx.play()
-			show_feedback("Health +1" , "g")
+			feedback.show_feedback("Health +1" , "g")
 			heart_particles.emitting = true
 	elif area.name == "damage_area":
 		if Global_Variables.player_health > 0:
 			#decrease health by 1:
 			Global_Variables.player_health -= 1
 			Audio_System.hurt_sfx.play()
-			show_feedback("Health -1" , "r")
+			feedback.show_feedback("Health -1" , "r")
 			blood_anim.frame = 0
 			blood_anim.play()
 	elif area.name == "laundry_area":
@@ -86,23 +86,17 @@ func _on_player_area_area_entered(area):
 			Global_Variables.carried_weight.append(weight)
 			laundry.queue_free()
 			Audio_System.laundry_pickup_sfx.play()
-			show_feedback("Picked up " + cloth_type , "g")
-		else: show_feedback("No room to carry more laundry!" , "r")
+			feedback.show_feedback("Picked up " + cloth_type , "g")
+		else: feedback.show_feedback("No room to carry more laundry!" , "r")
 	elif area.name == "basket_area":
 		var weight = Global_Variables.get_total_carried_weight()
 		if(weight > 0):
 			var reward = weight * Global_Variables.reward_per_weight
 			Global_Variables.score += reward
-			show_feedback("Reward +" + str(reward) , "g")
+			feedback.show_feedback("Reward +" + str(reward) , "g")
 			Global_Variables.carried_laundary = []
 			Global_Variables.carried_weight = []
 			Audio_System.deliver_laundry_sfx.play()
 		
 
-func show_feedback(text: String , color: String):
-	Feedback_Label.text = text
-	anim_player.stop(true)
-	if color == "g":
-		anim_player.play("label_fade_green")
-	elif color == "r":
-		anim_player.play("label_fade_red")
+
