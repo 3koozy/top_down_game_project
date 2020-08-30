@@ -63,30 +63,37 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -36.0
-margin_top = -23.0
-margin_right = 52.0
-margin_bottom = 56.0
+margin_left = -77.0
+margin_top = -51.5
+margin_right = 77.0
+margin_bottom = 51.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="pause_Label" type="Label" parent="black_screen/menu"]
-margin_right = 88.0
+margin_right = 154.0
 margin_bottom = 31.0
 text = "Game Paused
 "
+align = 1
 
 [node name="resume_btn" type="Button" parent="black_screen/menu"]
 margin_top = 35.0
-margin_right = 88.0
+margin_right = 154.0
 margin_bottom = 55.0
 text = "Resume"
 
-[node name="quit_btn" type="Button" parent="black_screen/menu"]
+[node name="menu_btn" type="Button" parent="black_screen/menu"]
 margin_top = 59.0
-margin_right = 88.0
+margin_right = 154.0
 margin_bottom = 79.0
+text = "Return to main screen"
+
+[node name="quit_btn" type="Button" parent="black_screen/menu"]
+margin_top = 83.0
+margin_right = 154.0
+margin_bottom = 103.0
 text = "Quit"
 
 [node name="time_metrics_label" type="Label" parent="."]
@@ -107,4 +114,5 @@ margin_bottom = 123.376
 text = "Carried Laundry : %s
 Carried Weight : &s / &s"
 [connection signal="button_up" from="black_screen/menu/resume_btn" to="." method="_on_resume_btn_button_up"]
+[connection signal="button_up" from="black_screen/menu/menu_btn" to="." method="_on_menu_btn_button_up"]
 [connection signal="button_up" from="black_screen/menu/quit_btn" to="." method="_on_quit_btn_button_up"]

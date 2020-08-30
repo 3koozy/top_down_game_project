@@ -230,6 +230,7 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fist/fist_area"]
 shape = SubResource( 23 )
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/hit_down = SubResource( 22 )

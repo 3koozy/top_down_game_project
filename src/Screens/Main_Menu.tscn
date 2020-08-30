@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/Background/background0.png" type="Texture" id=1]
+[ext_resource path="res://src/Screens/Main_Menu.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/player.png" type="Texture" id=3]
+[ext_resource path="res://assets/girl.png" type="Texture" id=4]
+[ext_resource path="res://assets/pants.png" type="Texture" id=5]
+[ext_resource path="res://assets/pajama.png" type="Texture" id=6]
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+spread = 30.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 200.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[node name="Main_Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -135.0
+margin_top = -55.0
+margin_right = 135.0
+margin_bottom = 55.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="game_title_label" type="Label" parent="VBoxContainer"]
+margin_right = 270.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Honey , can you get the laundry please ? ;)
+"
+
+[node name="play_btn" type="Button" parent="VBoxContainer"]
+margin_top = 35.0
+margin_right = 270.0
+margin_bottom = 55.0
+text = "Play"
+
+[node name="options_btn" type="Button" parent="VBoxContainer"]
+margin_top = 59.0
+margin_right = 270.0
+margin_bottom = 79.0
+text = "Options"
+
+[node name="credits_button" type="Button" parent="VBoxContainer"]
+margin_top = 83.0
+margin_right = 270.0
+margin_bottom = 103.0
+text = "Credits"
+
+[node name="quit_button" type="Button" parent="VBoxContainer"]
+margin_top = 107.0
+margin_right = 270.0
+margin_bottom = 127.0
+text = "Quit"
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="girl_sprite" type="Sprite" parent="."]
+position = Vector2( 568, 440 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 4 )
+
+[node name="man_sprite" type="Sprite" parent="."]
+position = Vector2( 452, 440 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 3 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( -12, 608 )
+rotation = -0.588399
+amount = 15
+lifetime = 3.0
+local_coords = false
+process_material = SubResource( 1 )
+texture = ExtResource( 6 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 1032, 608 )
+rotation = -2.44067
+amount = 15
+lifetime = 3.0
+local_coords = false
+process_material = SubResource( 1 )
+texture = ExtResource( 5 )
+[connection signal="button_up" from="VBoxContainer/play_btn" to="." method="_on_play_btn_button_up"]
+[connection signal="button_up" from="VBoxContainer/quit_button" to="." method="_on_quit_button_button_up"]

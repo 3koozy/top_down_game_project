@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Top Down Game Project"
-run/main_scene="res://src/Levels/Main_Level.tscn"
+run/main_scene="res://src/Screens/Main_Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

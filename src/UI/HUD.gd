@@ -48,3 +48,8 @@ func _on_resume_btn_button_up():
 
 func _on_quit_btn_button_up():
 	scene_tree.quit()
+
+
+func _on_menu_btn_button_up():
+	self.paused = false
+	get_tree().change_scene("res://src/Screens/Main_Menu.tscn")

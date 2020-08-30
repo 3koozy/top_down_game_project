@@ -5,5 +5,4 @@ onready var score_label: Label = get_node("HUD/HUD/score_label")
 onready var player: KinematicBody2D = get_node("Player")
 
 func _ready():
-	Audio_System.Background_music.play()
 	Time_System.start_system()
