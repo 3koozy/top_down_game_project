@@ -18,27 +18,27 @@ region = Rect2( 128, 64, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 96, 96, 16, 16 )
+region = Rect2( 112, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 112, 96, 16, 16 )
+region = Rect2( 112, 112, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 128, 96, 16, 16 )
+region = Rect2( 112, 64, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 112, 80, 16, 16 )
+region = Rect2( 96, 96, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 112, 112, 16, 16 )
+region = Rect2( 112, 96, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 112, 64, 16, 16 )
+region = Rect2( 128, 96, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
@@ -54,19 +54,19 @@ region = Rect2( 128, 80, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 112, 96, 16, 16 )
+region = Rect2( 96, 112, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 96, 112, 16, 16 )
+region = Rect2( 112, 112, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 112, 112, 16, 16 )
+region = Rect2( 128, 112, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 128, 112, 16, 16 )
+region = Rect2( 112, 96, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
@@ -75,24 +75,24 @@ animations = [ {
 "name": "moving_down",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "moving_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 7 ) ],
+"frames": [ SubResource( 4 ) ],
 "loop": true,
 "name": "stop_left",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "stop_up",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 9 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": true,
 "name": "stop_down",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "moving_right",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
@@ -100,14 +100,14 @@ animations = [ {
 "name": "moving_left",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 13 ) ],
-"loop": true,
-"name": "stop_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "moving_up",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 16 ) ],
+"loop": true,
+"name": "stop_right",
 "speed": 5.0
 } ]
 

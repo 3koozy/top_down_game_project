@@ -52,7 +52,7 @@ region = Rect2( 16, 112, 16, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 32, 112, 16, 16 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id=30]
 animations = [ {
 "frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
@@ -78,34 +78,10 @@ animations = [ {
 [sub_resource type="Animation" id=14]
 resource_name = "appear_animation"
 length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="Animation" id=15]
 resource_name = "disappear_animation"
 length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
 
 [sub_resource type="RectangleShape2D" id=16]
 extents = Vector2( 6.95776, 8.24934 )
@@ -121,12 +97,13 @@ max_speed = 2000
 position = Vector2( -15, -15 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-frames = SubResource( 13 )
-animation = "stop_down"
+frames = SubResource( 30 )
+animation = "moving_up"
+frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 6.3559, 6.37879, 3.54974, 8.20279, -4.44779, 7.92217, -6.4121, 6.5191, -5.00903, -4.98614, -2.34318, -7.37137, 2.98852, -6.95045, 7.05744, 1.88894 )
 
 [node name="change_direction_timer" type="Timer" parent="."]
@@ -137,10 +114,10 @@ autostart = true
 anims/appear_animation = SubResource( 14 )
 anims/disappear_animation = SubResource( 15 )
 
-[node name="damage_area" type="Area2D" parent="."]
-monitoring = false
+[node name="touch_area" type="Area2D" parent="."]
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="touch_area"]
 shape = SubResource( 16 )
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -148,8 +125,13 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
 shape = SubResource( 17 )
+
+[node name="chase_timer" type="Timer" parent="."]
+one_shot = true
 [connection signal="timeout" from="change_direction_timer" to="." method="_on_change_direction_timer_timeout"]
+[connection signal="area_entered" from="touch_area" to="." method="_on_touch_area_area_entered"]
 [connection signal="area_entered" from="detection_area" to="." method="_on_detection_area_area_entered"]
 [connection signal="area_exited" from="detection_area" to="." method="_on_detection_area_area_exited"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="chase_timer" to="." method="_on_chase_timer_timeout"]

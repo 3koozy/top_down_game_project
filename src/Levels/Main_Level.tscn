@@ -102,7 +102,7 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( 144, 36 )
 
 [node name="Slime" parent="Objects" instance=ExtResource( 15 )]
-position = Vector2( 148, 440 )
+position = Vector2( 248, 316 )
 
 [node name="Girl" parent="." instance=ExtResource( 3 )]
 position = Vector2( 296, 40 )
