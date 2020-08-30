@@ -14,6 +14,7 @@ var motion: Vector2 = Vector2.ZERO
 var enabled: bool = false
 var chase_mode: bool = false
 var chase_target : Node2D
+var in_light: bool = false
 
 func _ready():
 	if !change_direction:
@@ -39,30 +40,33 @@ func _physics_process(delta):
 		else : animation += "moving_down"
 		#set animation:
 		sprite.animation = animation
-		#check if we are chasing target:
-		if chase_mode:
-			var player_pos : Vector2 = chase_target.global_position
-			var ghost_pos: Vector2 = self.global_position
-			direction.x = player_pos.x - ghost_pos.x
-			direction.y = player_pos.y - ghost_pos.y
-			var larger_value = max(abs(direction.x) , abs(direction.y))
-			direction.x /= larger_value
-			direction.y /= larger_value
-		#check if hit obstacle:
-		if is_on_wall():
-			#reverse direction:
-			direction.x *= -1
-			direction.y *= -1
+		#check if we steped in light:
+		if in_light:
+			pass
+		else:
+			#check if we are chasing target:
+			if chase_mode:
+				var player_pos : Vector2 = chase_target.global_position
+				var ghost_pos: Vector2 = self.global_position
+				direction.x = player_pos.x - ghost_pos.x
+				direction.y = player_pos.y - ghost_pos.y
+				var larger_value = max(abs(direction.x) , abs(direction.y))
+				direction.x /= larger_value
+				direction.y /= larger_value
+			#check if hit obstacle:
+			if is_on_wall():
+				#reverse direction:
+				direction.x *= -1
+				direction.y *= -1
 		#move ghost:
 		motion.x = direction.x * max_speed * delta
 		motion.y = direction.y * max_speed * delta
-		print("Ghost motion : " + str(motion))
 		move_and_slide(motion)
 
 
 func _on_change_direction_timer_timeout():
 	#check if not chasing before randomly changing direction:
-	if !chase_mode:
+	if !chase_mode and !in_light:
 		var chance: int = randi() % 11
 		if chance == 10 : #1/10 chance
 			#stop moving
@@ -87,7 +91,6 @@ func enable():
 	anim_player.play("appear_animation")
 
 func _on_detection_area_body_entered(body):
-	print("Ghost detected body : " + body.name + " , " + str(body.global_position))
 	if body.name == "Player":
 		chase_mode = true
 		chase_target = body
@@ -97,3 +100,22 @@ func _on_detection_area_body_exited(body):
 	if body.name == "Player":
 		chase_mode = false
 		chase_target = null
+
+
+func _on_detection_area_area_entered(area):
+	if area.name == "light_area":
+		in_light = true
+		#set ghost motion direction the oppisite of light area:
+		var area_pos = area.global_position
+		var ghost_pos = self.global_position
+		direction.x = area_pos.x - ghost_pos.x
+		direction.y = area_pos.y - ghost_pos.y
+		var larger_value = -1 * max(abs(direction.x) , abs(direction.y)) #negative for oppisite direction
+		direction.x /= larger_value
+		direction.y /= larger_value
+		
+
+
+func _on_detection_area_area_exited(area):
+	if area.name == "light_area":
+		in_light = false

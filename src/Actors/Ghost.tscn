@@ -150,7 +150,7 @@ radius = 80.0
 
 [node name="Ghost" type="KinematicBody2D"]
 script = ExtResource( 2 )
-max_speed = 1500
+max_speed = 2000
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 17 )
@@ -180,5 +180,7 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
 shape = SubResource( 21 )
 [connection signal="timeout" from="change_direction_timer" to="." method="_on_change_direction_timer_timeout"]
+[connection signal="area_entered" from="detection_area" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="detection_area" to="." method="_on_detection_area_area_exited"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
