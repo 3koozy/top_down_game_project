@@ -7,11 +7,20 @@ onready var dust_particles: Particles2D = get_node("Dust_Particles/Particles2D")
 onready var heart_particles: Particles2D = get_node("hearts_particles/Particles2D")
 onready var blood_anim: AnimatedSprite = get_node("blood_animated/AnimatedSprite")
 onready var feedback: = get_node("feedback")
+onready var player_area: Area2D = get_node("player_area")
 #Variables:
 export var player_max_speed = 200
 var direction: String = "d"
 var player_motion: Vector2 = Vector2(0,0)
 
+func _input(event):
+	if event.is_action_released("interaction"):
+		var overlapping_areas = player_area.get_overlapping_areas()
+		#check if we are overlapping with a door:
+		var door: Area2D = check_area_from("door_area" , overlapping_areas)
+		if door != null:
+			door.get_parent().door_interaction()
+		
 
 func _physics_process(delta):
 	#calculate motion and change animation:
@@ -59,6 +68,11 @@ func get_direction() -> Vector2:
 	)
 	return direction
 
+func check_area_from(area_name: String , array) -> Area2D:
+	for i in range(array.size()):
+		if array[i].name == area_name:
+			return array[i]
+	return null
 
 func _on_player_area_area_entered(area):
 	if area.name == "love_area":

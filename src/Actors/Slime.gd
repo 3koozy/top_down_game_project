@@ -16,6 +16,7 @@ var chase_mode: bool = false
 var chase_target : Node2D
 var running: bool = false
 var sticky_laundry: Node
+var speed_multplier: int = 1
 
 func _ready():
 	if !change_direction:
@@ -53,8 +54,8 @@ func _physics_process(delta):
 			direction.x *= -1
 			direction.y *= -1
 	#move ghost:
-	motion.x = direction.x * max_speed * delta
-	motion.y = direction.y * max_speed * delta
+	motion.x = direction.x * max_speed * speed_multplier * delta
+	motion.y = direction.y * max_speed * speed_multplier * delta
 	move_and_slide(motion)
 	#check sticky laundry:
 	if sticky_laundry != null:
@@ -72,6 +73,11 @@ func _on_change_direction_timer_timeout():
 			#change direction:
 			direction.x = rand_range(-1.0 , 1.0)
 			direction.y = rand_range(-1.0 , 1.0)
+		#should we drop the laundry ?:
+		chance = randi() % 6
+		if chance == 5: #1/5 = 20% chance
+			sticky_laundry = null
+			feedback.show_feedback("pff... it's getting boaring!" , "y")
 
 func _on_detection_area_body_entered(body):
 	if body.name == "Player":
@@ -84,6 +90,8 @@ func _on_detection_area_body_entered(body):
 		var larger_value = -1 * max(abs(direction.x) , abs(direction.y)) #negative to point to oppisite direction
 		direction.x /= larger_value
 		direction.y /= larger_value
+		#double the speed:
+		speed_multplier = 2
 		feedback.show_feedback("scarry human!" , "y")
 
 
@@ -91,6 +99,7 @@ func _on_detection_area_body_exited(body):
 	if body.name == "Player":
 		#stop running:
 		running = false
+		speed_multplier = 1
 
 
 func _on_detection_area_area_entered(area):
